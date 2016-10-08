@@ -77,9 +77,8 @@ function createTerminal() {
       socketURL += repl_name;
       socket = new WebSocket(socketURL);
       socket.onopen = runRealTerminal;
-      // socket.onclose = runFakeTerminal;
       socket.onclose = notify;
-      socket.onerror = runFakeTerminal;
+      socket.onerror = notify;
     });
   });
 }
@@ -91,40 +90,4 @@ function notify() {
 function runRealTerminal() {
   term.attach(socket);
   term._initialized = true;
-
-  // term.on('paste', function (data, ev) {
-  //   alert(data);
-  //   term.write(data);
-  // });
-
-}
-
-function getContentFromClipboard() {
-    var result = '';
-    var sandbox = document.getElementById('sandbox');
-    sandbox.value = '';
-    sandbox.select();
-    if (document.execCommand('paste')) {
-        result = sandbox.value;
-        console.log('got value from sandbox: ' + result);
-    }
-    sandbox.value = '';
-    if(result != "")
-      alert(result);
-    return result;
-}
-
-function handlePaste (e) {
-    var clipboardData, pastedData;
-
-    // Stop data actually being pasted into div
-    e.stopPropagation();
-    e.preventDefault();
-
-    // Get pasted data via clipboard API
-    clipboardData = (e.originalEvent || e).clipboardData || window.clipboardData;
-    pastedData = clipboardData.getData('text/plain');
-
-    // Do whatever with pasteddata
-    alert(pastedData);
 }
