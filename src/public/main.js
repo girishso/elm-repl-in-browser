@@ -33,7 +33,6 @@ document.getElementById("paste-btn").addEventListener("click", function(e) {
   getContentFromClipboard();
 })
 
-terminalContainer.addEventListener('paste', handlePaste);
 createTerminal();
 
 function createTerminal() {
