@@ -1,1 +1,3 @@
 node_modules
+/tmp/elm-stuff
+/tmp/elm-package.json
