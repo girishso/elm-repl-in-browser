@@ -4,7 +4,7 @@
   "description": "Elm Repl in browser.",
   "main": "lib/app.js",
   "scripts": {
-    "build": "NODE_ENV=production node node_modules/.bin/webpack && ./node_modules/.bin/babel src -d dist  --presets es2015,stage-2 && cp -v src/public/*.{html,css} dist/public",
+    "build": "NODE_ENV=production node node_modules/.bin/webpack && ./node_modules/.bin/babel src -d dist  --presets es2015,stage-2 && cp -v src/public/*.{html,css,svg,ico} dist/public",
     "start": "nodemon src/app.js --watch ./src --exec babel-node --presets es2015,stage-2",
     "serve": "node dist/app.js",
     "test": "mocha --compilers js:babel-register"
