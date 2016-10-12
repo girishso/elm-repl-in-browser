@@ -6,9 +6,16 @@
         <link rel="stylesheet" href="/xterm/addons/fullscreen/fullscreen.css" />
         <link rel="stylesheet" href="/style.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+        <link rel="shortcut icon" sizes="16x16 32x32 48x48 64x64 128x128 256x256" href="/favicon.ico">
     </head>
     <body>
-        <h1>Elm Repl in browser</h1>
+        <div id="controls">
+            <div class="options">
+                <div class="hint">
+                    Elm Repl
+                </div>
+            </div>
+        </div>
         <div id="terminal-container"></div>
         <div id="overlay">Connection closed</div>
         <script src="terminal.min.js" ></script>

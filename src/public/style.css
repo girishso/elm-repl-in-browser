@@ -9,6 +9,7 @@ html, head, body {
 body {
   font-family: 'Source Code Pro', monospace;
   font-size: 14px;
+  background-color: #333333;
 }
 
 /* CONTROLS */
