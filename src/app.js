@@ -95,8 +95,7 @@ app.ws('/terminals/:repl_name', (ws, req) => {
 });
 
 var port = process.env.PORT || 3000,
-    host = "0.0.0.0";
-    // host = '127.0.0.1';
+    host = '127.0.0.1';
 
 console.log('App listening to http://' + host + ':' + port);
 app.listen(port, host);
