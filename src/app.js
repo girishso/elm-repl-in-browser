@@ -24,7 +24,7 @@ app.post('/terminals', (req, res) => {
       term = pty.spawn('docker', ["run", "-it", "-v", __dirname + "/../tmp:/code", "-w", "/code", "--name", repl_name, "--entrypoint", "elm-repl", "codesimple/elm:0.17"], {
         name: 'xterm-color',
         cols: cols || 80,
-        rows: rows || 24,
+        rows: rows || 32,
         cwd: process.env.PWD,
         env: process.env
       });
@@ -95,6 +95,7 @@ app.ws('/terminals/:repl_name', (ws, req) => {
 });
 
 var port = process.env.PORT || 3000,
+    // host = "0.0.0.0";
     host = '127.0.0.1';
 
 console.log('App listening to http://' + host + ':' + port);

@@ -6,12 +6,7 @@ var term,
     charWidth,
     charHeight;
 
-var terminalContainer = document.getElementById('terminal-container'),
-    optionElements = {
-      cursorBlink: document.querySelector('#option-cursor-blink')
-    },
-    colsElement = document.getElementById('cols'),
-    rowsElement = document.getElementById('rows');
+var terminalContainer = document.getElementById('terminal-container');
 
 function setTerminalSize () {
   var cols = parseInt(colsElement.value),
@@ -24,11 +19,6 @@ function setTerminalSize () {
   term.resize(cols, rows);
 }
 
-colsElement.addEventListener('change', setTerminalSize);
-rowsElement.addEventListener('change', setTerminalSize);
-
-optionElements.cursorBlink.addEventListener('change', createTerminal);
-
 
 createTerminal();
 
@@ -38,7 +28,7 @@ function createTerminal() {
     terminalContainer.removeChild(terminalContainer.children[0]);
   }
   term = new Terminal({
-    cursorBlink: optionElements.cursorBlink.checked
+    cursorBlink: false
   });
   term.on('resize', function (size) {
     if (!repl_name) {
@@ -54,14 +44,13 @@ function createTerminal() {
   socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
 
   term.open(terminalContainer);
-  term.fit();
+  // term.fit();
+  term.toggleFullscreen(1);
 
   var initialGeometry = term.proposeGeometry(),
       cols = initialGeometry.cols,
       rows = initialGeometry.rows;
 
-  colsElement.value = cols;
-  rowsElement.value = rows;
 
   fetch('/terminals?cols=' + cols + '&rows=' + rows, {method: 'POST'}).then(function (res) {
 
