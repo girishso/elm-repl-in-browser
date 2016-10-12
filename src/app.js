@@ -14,6 +14,7 @@ let terminals = {},
     logs = {};
 
 app.use(express.static(__dirname + '/public'));
+app.use("/xterm", express.static(__dirname + '/../node_modules/xterm'));
 
 
 app.post('/terminals', (req, res) => {

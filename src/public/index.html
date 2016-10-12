@@ -2,14 +2,10 @@
 <html>
     <head>
         <title>xterm.js demo</title>
-        <link rel="stylesheet" href="/vendor/xterm.css" />
-        <script src="/vendor/xterm.js" ></script>
-        <link rel="stylesheet" href="/vendor/addons/fullscreen/fullscreen.css" />
+        <link rel="stylesheet" href="/xterm/dist/xterm.css" />
+        <link rel="stylesheet" href="/xterm/addons/fullscreen/fullscreen.css" />
         <link rel="stylesheet" href="/style.css" />
-      	<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
-        <script src="/vendor/addons/attach/attach.js" ></script>
-        <script src="/vendor/addons/fit/fit.js" ></script>
-        <script src="/vendor/addons/fullscreen/fullscreen.js" ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
     </head>
     <body>
         <h1>xterm.js: xterm, in the browser</h1>
@@ -17,10 +13,8 @@
         <div>
           <h2>Options</h2>
           <label><input type="checkbox" id="option-cursor-blink"> cursorBlink</label>
-          <button id="paste-btn"> Paste</button>
-          <input type="text" id="sandbox" />
           <div>
-          	<h3>Size</h3>
+            <h3>Size</h3>
             <div>
               <div style="display: inline-block; margin-right: 16px;">
                 <label for="cols">Columns</label>
@@ -34,6 +28,10 @@
           </div>
         </div>
         <p><strong>Attention:</strong> The demo is a barebones implementation and is designed for xterm.js evaluation purposes only. Exposing the demo to the public as is would introduce security risks for the host.</p>
-        <script src="/main.js" defer ></script>
+         <!-- <script>var Terminal = require("script!xterm.js");</script> -->
+        <script src="terminal.min.js" ></script>
+        <script src="/xterm/addons/fit/fit.js"></script>
+        <script src="/xterm/addons/attach/attach.js"></script>
+        <script src="main.js" defer ></script>
     </body>
 </html>

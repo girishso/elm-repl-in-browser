@@ -1,0 +1,1 @@
+window.Terminal = require('xterm');

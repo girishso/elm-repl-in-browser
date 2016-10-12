@@ -4,7 +4,7 @@
   "description": "Elm Repl in browser.",
   "main": "lib/index.js",
   "scripts": {
-    "start": "nodemon src/app.js --exec babel-node --presets es2015,stage-2",
+    "start": "nodemon src/app.js --watch ./src --exec babel-node --presets es2015,stage-2",
     "build": "babel lib -d dist",
     "serve": "node dist/index.js",
     "test": "mocha --compilers js:babel-register"
@@ -23,11 +23,14 @@
     "express-ws": "2.0.0-rc.1",
     "glob": "^7.0.5",
     "jsdoc": "3.4.0",
-    "mocha": "2.5.3",
+    "mocha": "^3.0.1",
     "pty.js": "0.3.1",
     "shortid": "^2.2.6",
     "sleep": "^3.0.1",
-    "mocha": "^3.0.1",
     "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "webpack": "^1.13.2",
+    "xterm": "^2.0.1"
   }
 }

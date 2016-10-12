@@ -29,9 +29,6 @@ rowsElement.addEventListener('change', setTerminalSize);
 
 optionElements.cursorBlink.addEventListener('change', createTerminal);
 
-document.getElementById("paste-btn").addEventListener("click", function(e) {
-  getContentFromClipboard();
-})
 
 createTerminal();
 
