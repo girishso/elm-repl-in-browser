@@ -69,7 +69,7 @@ function createTerminal() {
 }
 
 function notify() {
-  alert("connection closed!");
+  terminalContainer.style.opacity = 0.5;
 }
 
 function runRealTerminal() {
