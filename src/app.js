@@ -29,7 +29,7 @@ app.post('/terminals', (req, res) => {
         env: process.env
       });
 
-  console.log(`Created terminal with PID: ${term.pid}, container: ${repl_name}`);
+  console.log(`Created terminal with PID: ${term.pid}, container: ${repl_name}, size: ${cols}x${rows}`);
   // console.log(simpleStringify(term));
   terminals[repl_name] = term;
   logs[repl_name] = '';
@@ -95,8 +95,8 @@ app.ws('/terminals/:repl_name', (ws, req) => {
 });
 
 var port = process.env.PORT || 3000,
-    // host = "0.0.0.0";
-    host = '127.0.0.1';
+    host = "0.0.0.0";
+    // host = '127.0.0.1';
 
 console.log('App listening to http://' + host + ':' + port);
 app.listen(port, host);

@@ -44,8 +44,8 @@ function createTerminal() {
   socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
 
   term.open(terminalContainer);
-  // term.fit();
-  term.toggleFullscreen(1);
+  term.fit();
+  // term.toggleFullscreen(1);
 
   var initialGeometry = term.proposeGeometry(),
       cols = initialGeometry.cols,
@@ -70,6 +70,7 @@ function createTerminal() {
 
 function notify() {
   terminalContainer.style.opacity = 0.5;
+  document.getElementById("overlay").style.display = "block";
 }
 
 function runRealTerminal() {

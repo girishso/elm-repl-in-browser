@@ -11,8 +11,8 @@ h1 {
 }
 
 #terminal-container {
-/*    width: 100%;
-    height: 900px;*/
+    width: 100%;
+    height: 600px;
     margin: 0 auto;
     padding: 2px;
 }
@@ -33,7 +33,8 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: xx-large;
-    z-index: 100;
+    /*z-index: 100;*/
+    display: none;
     background-color: white;
     border-radius: .5em;
     padding: 0.4em;
