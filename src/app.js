@@ -21,7 +21,7 @@ app.post('/terminals', (req, res) => {
   let cols = parseInt(req.query.cols),
       rows = parseInt(req.query.rows),
       repl_name = shortid.generate(),
-      term = pty.spawn('docker', ["run", "-it", "--name", repl_name, "--entrypoint", "elm-repl", "codesimple/elm:0.17"], {
+      term = pty.spawn('docker', ["run", "-it", "-v", __dirname + "/../tmp:/code", "-w", "/code", "--name", repl_name, "--entrypoint", "elm-repl", "codesimple/elm:0.17"], {
         name: 'xterm-color',
         cols: cols || 80,
         rows: rows || 24,
