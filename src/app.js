@@ -7,8 +7,23 @@ const
   os = require('os'),
   pty = require('pty.js'),
   shortid = require('shortid'),
-  spawn = require('child_process').spawn;
+  spawn = require('child_process').spawn,
+  RateLimit = require('express-rate-limit');
 
+// rate limiter
+app.enable('trust proxy');
+
+
+let limiter = new RateLimit({
+  windowMs: 30*60*1000, // 30 minutes
+  delayAfter: 10, // begin slowing down responses after the first request
+  delayMs: 2*1000, // slow down subsequent responses by 2 seconds per request
+  max: 15, // start blocking after 30 requests
+  message: "Too many requests from this IP, please try again after 30 minutes"
+});
+
+//  apply to all requests
+app.use("/terminals", limiter);
 
 let terminals = {},
     logs = {};
@@ -51,7 +66,7 @@ app.post('/terminals/:repl_name/size', (req, res) => {
   res.end();
 });
 
-app.ws('/terminals/:repl_name', (ws, req) => {
+app.ws('/ws/:repl_name', (ws, req) => {
   let repl_name = req.params.repl_name, term = terminals[repl_name];
   console.log('Connected to terminal ' + repl_name);
   ws.send(logs[repl_name]);

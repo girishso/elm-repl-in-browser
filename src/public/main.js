@@ -41,7 +41,7 @@ function createTerminal() {
     fetch(url, {method: 'POST'});
   });
   protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
-  socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
+  socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/ws/';
 
   term.open(terminalContainer);
   term.fit();
@@ -54,6 +54,16 @@ function createTerminal() {
 
   fetch('/terminals?cols=' + cols + '&rows=' + rows, {method: 'POST'}).then(function (res) {
 
+    if(!res.ok) {
+      if(res.status == 429)
+        document.getElementById("overlay").innerText = "Too many requests from this IP, please try again after 30 minutes";
+      else
+        document.getElementById("overlay").innerText = res.statusText;
+
+      notify();
+      return;
+    }
+
     charWidth = Math.ceil(term.element.offsetWidth / cols);
     charHeight = Math.ceil(term.element.offsetHeight / rows);
 
@@ -65,7 +75,10 @@ function createTerminal() {
       socket.onclose = notify;
       socket.onerror = notify;
     });
-  });
+  }).catch(function(err) {
+    document.getElementById("overlay").innerText = err;
+    notify();
+  });;
 }
 
 function notify() {
