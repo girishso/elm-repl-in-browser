@@ -20,14 +20,15 @@
     "child_process": "^1.0.2",
     "docdash": "0.4.0",
     "express": "4.13.4",
+    "express-rate-limit": "^2.5.0",
     "express-ws": "2.0.0-rc.1",
     "glob": "^7.0.5",
     "jsdoc": "3.4.0",
     "mocha": "^3.0.1",
+    "nodemon": "^1.11.0",
     "pty.js": "0.3.1",
     "shortid": "^2.2.6",
-    "sleep": "^3.0.1",
-    "nodemon": "^1.11.0"
+    "sleep": "^3.0.1"
   },
   "dependencies": {
     "webpack": "^1.13.2",
