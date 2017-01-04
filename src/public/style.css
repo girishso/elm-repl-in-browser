@@ -33,6 +33,15 @@ body {
   text-align: center;
 }
 
+.credit {
+    width: 100px;
+    display: block;
+    float: right;
+    cursor: pointer;
+    color: #888;
+    text-align: center;
+}
+
 .blue {
   border-bottom: 4px solid #60B5CC;
 }
@@ -68,15 +77,19 @@ body {
   height: 36px;
 }
 
-.hint > a {
+.credit > a {
+  text-decoration: none;
+}
+
+.hint > a, .credit > a {
   color: #888;
 }
 
-.hint > a:hover {
+.hint > a:hover, .credit > a:hover {
   color: #aaa;
 }
 
-.hint > a:active {
+.hint > a:active, .credit > a:active {
   color: #ccc;
 }
 

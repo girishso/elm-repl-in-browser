@@ -31,12 +31,19 @@ let terminals = {},
 app.use(express.static(__dirname + '/public'));
 app.use("/xterm", express.static(__dirname + '/../node_modules/xterm'));
 
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
 
 app.post('/terminals', (req, res) => {
   let cols = parseInt(req.query.cols),
       rows = parseInt(req.query.rows),
       repl_name = shortid.generate(),
-      term = pty.spawn('docker', ["run", "-it", "-v", __dirname + "/../tmp:/code", "-w", "/code", "--name", repl_name, "--entrypoint", "elm-repl", "codesimple/elm:0.17"], {
+      term = pty.spawn('docker', ["run", "-it", "-v", __dirname + "/../tmp:/code", "-w", "/code", "--name", repl_name, "--entrypoint", "elm-repl", "codesimple/elm:0.18"], {
         name: 'xterm-color',
         cols: cols || 80,
         rows: rows || 32,
@@ -69,7 +76,13 @@ app.post('/terminals/:repl_name/size', (req, res) => {
 app.ws('/ws/:repl_name', (ws, req) => {
   let repl_name = req.params.repl_name, term = terminals[repl_name];
   console.log('Connected to terminal ' + repl_name);
-  ws.send(logs[repl_name]);
+
+  try {
+    ws.send(logs[repl_name]);
+  } catch (ex) {
+    console.error(ex)
+    ws.close();
+  }
 
   term.on('data', (data) => {
     try {
@@ -80,11 +93,32 @@ app.ws('/ws/:repl_name', (ws, req) => {
   });
 
   term.on('exit', (code, signal) => {
-    ws.close();
+    try {
+      ws.close();
+    } catch (ex) {
+      console.error(ex)
+    }
+  });
+
+  // not executed
+  term.on('error', function() {
+    console.log("term error");
   });
 
   ws.on('message', (msg) => {
-    term.write(msg);
+    try {
+      term.write(msg);
+    } catch (ex) {
+      console.error(ex)
+      ws.close();
+    }
+  });
+
+  // not executed
+  ws.on('error', function() {
+    console.log("Communication error")
+    term.write("\rFail: ");
+    term.write("Communication error");
   });
 
   ws.on('close',  () => {
@@ -133,3 +167,8 @@ let simpleStringify = (object) => {
     }
     return JSON.stringify(simpleObject); // returns cleaned up JSON
 };
+
+// very crude implementation
+process.on('uncaughtException', (err) => {
+  console.error(1, `Caught exception: ${err}`);
+});
