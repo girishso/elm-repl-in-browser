@@ -32,6 +32,6 @@
   },
   "dependencies": {
     "webpack": "^1.13.2",
-    "xterm": "^2.0.1"
+    "xterm": "^2.2.3"
   }
 }
