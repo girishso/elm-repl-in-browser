@@ -1,4 +1,4 @@
-var term,
+let term,
     protocol,
     socketURL,
     socket,
@@ -6,10 +6,10 @@ var term,
     charWidth,
     charHeight;
 
-var terminalContainer = document.getElementById('terminal-container');
+const terminalContainer = document.getElementById('terminal-container');
 
-function setTerminalSize () {
-  var cols = parseInt(colsElement.value),
+const setTerminalSize = () => {
+  const cols = parseInt(colsElement.value),
       rows = parseInt(rowsElement.value),
       width = (cols * charWidth).toString() + 'px',
       height = (rows * charHeight).toString() + 'px';
@@ -19,10 +19,7 @@ function setTerminalSize () {
   term.resize(cols, rows);
 }
 
-
-createTerminal();
-
-function createTerminal() {
+const createTerminal = () => {
   // Clean terminal
   while (terminalContainer.children.length) {
     terminalContainer.removeChild(terminalContainer.children[0]);
@@ -34,7 +31,7 @@ function createTerminal() {
     if (!repl_name) {
       return;
     }
-    var cols = size.cols,
+    const cols = size.cols,
         rows = size.rows,
         url = '/terminals/' + repl_name + '/size?cols=' + cols + '&rows=' + rows;
 
@@ -47,12 +44,12 @@ function createTerminal() {
   term.fit();
   // term.toggleFullscreen(1);
 
-  var initialGeometry = term.proposeGeometry(),
+  const initialGeometry = term.proposeGeometry(),
       cols = initialGeometry.cols,
       rows = initialGeometry.rows;
 
 
-  fetch('/terminals?cols=' + cols + '&rows=' + rows, {method: 'POST'}).then(function (res) {
+  fetch('/terminals?cols=' + cols + '&rows=' + rows, {method: 'POST'}).then( (res) => {
 
     if(!res.ok) {
       if(res.status == 429)
@@ -67,7 +64,7 @@ function createTerminal() {
     charWidth = Math.ceil(term.element.offsetWidth / cols);
     charHeight = Math.ceil(term.element.offsetHeight / rows);
 
-    res.text().then(function (repl_name) {
+    res.text().then( (repl_name) => {
       window.repl_name = repl_name;
       socketURL += repl_name;
       socket = new WebSocket(socketURL);
@@ -75,18 +72,20 @@ function createTerminal() {
       socket.onclose = notify;
       socket.onerror = notify;
     });
-  }).catch(function(err) {
+  }).catch( (err) => {
     document.getElementById("overlay").innerText = err;
     notify();
   });;
 }
 
-function notify() {
+createTerminal();
+
+const notify = () => {
   terminalContainer.style.opacity = 0.5;
   document.getElementById("overlay").style.display = "block";
 }
 
-function runRealTerminal() {
+const runRealTerminal = () => {
   term.attach(socket);
   term._initialized = true;
 }
